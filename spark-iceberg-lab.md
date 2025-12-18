@@ -1,0 +1,14 @@
+spark-shell \
+  --packages org.apache.iceberg:iceberg-spark-runtime-3.5_2.12:1.5.2,org.projectnessie.nessie-integrations:nessie-spark-extensions-3.5_2.12:0.83.1,org.apache.hadoop:hadoop-aws:3.3.4 \
+  --conf spark.sql.extensions=org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions \
+  --conf spark.sql.catalog.nessie=org.apache.iceberg.spark.SparkCatalog \
+  --conf spark.sql.catalog.nessie.catalog-impl=org.apache.iceberg.nessie.NessieCatalog \
+  --conf spark.sql.catalog.nessie.uri=http://nessie:19120/api/v1 \
+  --conf spark.sql.catalog.nessie.ref=main \
+  --conf spark.sql.catalog.nessie.authentication.type=NONE \
+  --conf spark.sql.catalog.nessie.warehouse=s3a://warehouse/ \
+  --conf spark.hadoop.fs.s3a.endpoint=http://minio:9000 \
+  --conf spark.hadoop.fs.s3a.access.key=admin \
+  --conf spark.hadoop.fs.s3a.secret.key=password \
+  --conf spark.hadoop.fs.s3a.path.style.access=true \
+  --conf spark.hadoop.fs.s3a.connection.ssl.enabled=false
